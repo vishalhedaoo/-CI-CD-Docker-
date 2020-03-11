@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 sudo docker-compose -f docker-compose.yml up --build
