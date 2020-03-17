@@ -1,7 +1,7 @@
- 
+
 # Automated CI/CD using Docker and Jenkins
 
-This repository tries to exemplify how to automatically manage the process of building, testing with the highest coverage, and deployment phases.
+This repository is a tutorial it tries to exemplify how to automatically manage the process of building, testing with the highest coverage, and deployment phases.
 
 Our goal is to ensure our pipeline works well after each code being pushed. The processes we want to auto-manage:
 * Code checkout
@@ -72,15 +72,15 @@ f5bed5ba3266        pipeline_sonarqube   "./bin/run.sh"           About a minute
 ## GitHub configuration
 We’ll define a service on Github to call the ``Jenkins Github webhook`` because we want to trigger the pipeline. To do this go to _Settings -> Integrations & services._ The ``Jenkins Github plugin`` should be shown on the list of available services as below.
 
-![](images/)
+![](images/001.png)
 
 After this, we should add a new service by typing the URL of the dockerized Jenkins container along with the ``/github-webhook/`` path.
 
-![](images/)
+![](images/002.png)
 
 The next step is that create an ``SSH key`` for a Jenkins user and define it as ``Deploy keys`` on our GitHub repository.
 
-![](images/)
+![](images/003.png)
 
 If everything goes well, the following connection request should return with a success.
 ```
@@ -135,15 +135,15 @@ The purpose is to communicate between the ``Docker Daemon`` and the ``Docker Cli
 
 ![](images/008.png)
 
-We have added the ``Maven and Docker installers`` and have checked the ``Install automatically`` checkbox. These tools are installed by Jenkins when our script([Jenkins file](https://github.com/vishalhedaoo/CI-CD-Docker/blob/master/Jenkinsfile)) first runs. We give ``myMaven`` and ``myDocker`` names to the tools. We will access these tools with this names in the script file.
+We have added the ``Maven and Docker installers`` and have checked the ``Install automatically`` checkbox. These tools are installed by Jenkins when our script([Jenkins file](https://github.com/vineet68sharma/CI-CD-Docker/blob/master/Jenkinsfile)) first runs. We give ``myMaven`` and ``myDocker`` names to the tools. We will access these tools with this names in the script file.
 
 Since we will perform some operations such as ``checkout codebase`` and ``pushing an image to Docker Hub``, we need to define the ``Docker Hub Credentials``. Keep in mind that if we are using a **private repo**, we must define ``Github credentials``. These definitions are performed under _Jenkins Home Page -> Credentials -> Global credentials (unrestricted) -> Add Credentials_ menu.
 
-![](images/)
+![](images/009.png)
 
 We use the value we entered in the ``ID`` field to Docker Login in the script file. Now, we define pipeline under _Jenkins Home Page -> New Item_ menu.
 
-![](images/015.png)
+![]()
 
 Also Dont forget to mark env variables for Docker username and Docker password .
 
@@ -151,15 +151,15 @@ Also Dont forget to mark env variables for Docker username and Docker password .
 
 In this step, we select ``GitHub hook trigger for GITScm pooling`` options for automatic run of the pipeline by ``Github hook`` call.
 
-![](images/)
+![](images/011.png)
 
-Also in the Pipeline section, we select the ``Pipeline script from SCM`` as Definition, define the GitHub repository and the branch name, and specify the script location (_[https://github.com/vishalhedaoo/CI-CD-Docker/blob/master/Jenkinsfile)_).
+Also in the Pipeline section, we select the ``Pipeline script from SCM`` as Definition, define the GitHub repository and the branch name, and specify the script location (_[https://github.com/vineet68sharma/CI-CD-Docker/blob/master/Jenkinsfile)_).
 
-![](images/)
+![](images/012.png)
 
 Create a repository in docker hub so the built image is pushed to docker registry with its credentials (need to be filled in jenkinsFile)
  
-![](images/)
+![](images/016.png)
 
 
 After that, when a push is done to the remote repository or when you manually trigger the pipeline by ``Build Now`` option, the steps described in Jenkins file will be executed.
@@ -175,7 +175,7 @@ After Deployment is done and Container is running , You can check it by URL and 
 
  http://ec2-50-16-10-93.compute-1.amazonaws.com:8090/
 
-![](images/)
+![](images/017.png)
 
 
 ## Review important points of the Jenkins file
